@@ -1,0 +1,16 @@
+{
+    "content_scripts": [ 
+        {
+            "matches": [ "https://trello.com/*" ],
+            "css": [ "trellowip.css" ],
+            "js": [ "jquery-1.7.1.min.js", "trellowip.js" ]
+        } 
+    ],
+    "description": "Adds work-in-progrss limits to Trello lists supporting a Kanban workflow.",
+    "icons": {
+        "128": "trellowipicon.png"
+    },
+    "name": "Kanban WIP for Trello",
+    "version": "0.1"
+}
+
