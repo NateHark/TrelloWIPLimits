@@ -1,5 +1,5 @@
 /*
- * TrelloWIPLimits v0.1 <https://github.com/NateHark/TrellowWIPLimits>
+ * TrelloWIPLimits v0.2.0 <https://github.com/NateHark/TrellowWIPLimits>
  * Adds work-in-progress limits to Trello lists supporting a Kanban workflow.
  * Inspired by TrelloScrum <https://github.com/Q42/TrelloScrum> 
  *
@@ -18,7 +18,7 @@ $(function(){
 
     // Recalculate limits when the list title is changed
     $('.list-title .js-save-edit').live('mouseup', function(e) {
-        readList($(e.target).parents('.list'));        
+        updateList($(e.target).parents('.list'));        
     });
 	
     function updateList($c) {
@@ -67,11 +67,21 @@ function List(el) {
     this.checkWipLimit = function() {
         calcWipLimit();
         if(cardLimit && cardLimit > 0) {
-            var cardCount = $list.find('.list-card').size();
-            if(cardCount > cardLimit) {
-                $list.addClass('over-limit');
-            } else {
-                $list.removeClass('over-limit');
+            var cardCount = 0;
+            $list.find('.list-card').each(function() {
+                if($(this).parent().hasClass('card-composer')) return true;    
+                cardCount++;
+            });
+            
+            $list.removeClass('over-limit');
+            $list.removeClass('at-limit');
+
+            if(cardCount >= cardLimit) {
+                if(cardCount == cardLimit) { 
+                    $list.addClass('at-limit');
+                } else {
+                    $list.addClass('over-limit');
+                }
             }
         }
     }

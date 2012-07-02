@@ -1,3 +1,9 @@
-.over-limit {
-    background-color: #f2a4a4 !important;
+.list.over-limit {
+    background-color: #D64141 !important;
+    border-top: solid 1px #D64141 !important;
+}
+
+.list.at-limit {
+    background-color: #EFBE43 !important;
+    border-top: solid 1px #EFBE43 !important;
 }
