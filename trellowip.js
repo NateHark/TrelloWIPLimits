@@ -1,5 +1,5 @@
 /*
- * TrelloWIPLimits v0.2.2 <https://github.com/NateHark/TrellowWIPLimits>
+ * TrelloWIPLimits v0.2.3 <https://github.com/NateHark/TrellowWIPLimits>
  * Adds work-in-progress limits to Trello lists supporting a Kanban workflow.
  * Inspired by TrelloScrum <https://github.com/Q42/TrelloScrum> 
  *
@@ -9,8 +9,7 @@
  */
 
 $(function() {
-    var me = this;
-    me.updateList = function($c) {
+    function updateList($c) {
         $c.each(function() {
             if(!this.list) { 
                 new List(this);
@@ -22,26 +21,19 @@ $(function() {
         });
     };
     
-    // Watch for list changes	
-    $('body').bind('DOMSubtreeModified',function(e){
+    // Watch for list changes and handle initial list population	
+    $('body').bind('DOMSubtreeModified DOMNodeInserted', function(e) {
         if($(e.target).hasClass('list')) {
-            me.updateList($(e.target)); 
+            setTimeout(function() { updateList($(e.target)); }); 
         }
     });
     
-    // Handle initial population of the lists 
-    $('.list').live('DOMNodeInserted', function(e) {
-        if($(e.target).hasClass('list')) {
-            me.updateList($(e.target)); 
-        }
-    });
-
     // Recalculate limits when the list title is changed
     $('.list-title .js-save-edit').live('mouseup', function(e) {
-        me.updateList($(e.target).parents('.list'));        
+        setTimeout(function() { updateList($(e.target).parents('.list')); });       
     });
 	
-    me.updateList($('.list'));
+    updateList($('.list'));
 });
 
 //.list pseudo
