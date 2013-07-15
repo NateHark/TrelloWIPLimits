@@ -7,3 +7,31 @@
     background-color: #EFBE43 !important;
     border-top: solid 1px #EFBE43 !important;
 }
+
+.list.over-limit .list-gradient-top { 
+    background:-webkit-linear-gradient(top, #D64141 0%, rgba(214, 65, 65, 0) 100%); 
+    background:linear-gradient(to bottom, #D64141 0%, rgba(214, 65, 65, 0) 100%); 
+}
+
+.list.over-limit .list-gradient-bottom { 
+    background:-webkit-linear-gradient(top, rgba(214, 65, 65, 0) 0%, #D64141 100%); 
+    background:linear-gradient(to bottom, rgba(214, 65, 65, 0) 0%, #D64141 100%); 
+}
+
+.list.at-limit .list-gradient-top { 
+    background:-webkit-linear-gradient(top, #EFBE43 0%, rgba(239, 190, 67, 0) 100%); 
+    background:linear-gradient(to bottom, #EFBE43 0%, rgba(239, 190, 67, 0) 100%); 
+}
+
+.list.at-limit .list-gradient-bottom { 
+    background:-webkit-linear-gradient(top, rgba(239, 190, 67, 0) 0%, #EFBE43 100%); 
+    background:linear-gradient(to bottom, rgba(239, 190, 67, 0) 0%, #EFBE43 100%); 
+}
+
+.list.over-limit .open-card-composer, .list.at-limit .open-card-composer { 
+    color: #FFF; 
+}
+
+.list.over-limit .open-card-composer:hover, .list.at-limit .open-card-composer:hover {
+    background-color: #888; 
+}
