@@ -80,9 +80,9 @@ function List(el) {
             });
             
             if(cardCount >= cardLimit) {
-                if(cardCount == cardLimit) { 
+                if(cardCount == cardLimit && cardLimit != 0) { 
                     $list.addClass('at-limit');
-                } else {
+                } else if (cardCount > cardLimit) {
                     $list.addClass('over-limit');
                 }
             }
