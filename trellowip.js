@@ -72,7 +72,7 @@ function List(el) {
 
         calcWipLimit();
         
-        if(cardLimit && cardLimit > 0) {
+        if(cardLimit && cardLimit > -1) {
             var cardCount = 0;
             $list.find('.list-card').each(function() {
                 if($(this).parent().hasClass('card-composer')) return true;    
