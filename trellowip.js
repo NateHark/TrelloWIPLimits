@@ -22,12 +22,19 @@ $(function() {
     };
     
     // Watch for list changes and handle initial list population	
-    $('body').bind('DOMSubtreeModified DOMNodeInserted', function(e) {
-        if($(e.target).hasClass('list')) {
-            setTimeout(function() { updateList($(e.target)); }); 
-        }
+    var boards = $.find('#board .list');
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            setTimeout(function() { 
+                updateList($(mutation.target).closest('.list')); 
+            });
+        });
     });
-    
+    var config = {childList: true, subtree: true};
+    for(var i=0, len = boards.length; i<len; i++) {
+        observer.observe(boards[i], config);
+    }
+
     // Recalculate limits when the list title is changed
     $('.list-title .js-save-edit').live('mouseup', function(e) {
         setTimeout(function() { updateList($(e.target).parents('.list')); });       
