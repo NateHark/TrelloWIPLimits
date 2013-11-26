@@ -50,8 +50,9 @@ function List(el) {
 
 	var $list=$(el),
         $listHeader,
-        listMatch = /\[(\d+)\]/,
-        cardLimit;   
+        listMatch = /\[(\d+)(?:-(\d+))?\]/,
+        cardMinLimit,
+				cardMaxLimit;   
 
     $listHeader = $list.find('.list-header h2');
 
@@ -64,11 +65,14 @@ function List(el) {
             if(this.nodeType === 3) {
                 var listName = this.nodeValue;
                 var matches = listMatch.exec(listName);
-                if(matches && matches.length == 2) {
-                    cardLimit = matches[1];
-                } else {
-                    cardLimit = null;
-                }
+								cardMinLimit = cardMaxLimit = null;
+								if(!matches || matches.length != 3) {	return; }
+								if(typeof matches[2] === 'undefined') {
+									cardMaxLimit = matches[1];
+								} else {
+									cardMinLimit = matches[1];
+									cardMaxLimit = matches[2];
+								}
             }
         });
     }
@@ -79,19 +83,17 @@ function List(el) {
 
         calcWipLimit();
         
-        if(cardLimit && cardLimit > -1) {
+        if(cardMaxLimit != null) {
             var cardCount = 0;
             $list.find('.list-card').each(function() {
                 if($(this).parent().hasClass('card-composer')) return true;    
                 cardCount++;
             });
             
-            if(cardCount >= cardLimit) {
-                if(cardCount == cardLimit && cardLimit != 0) { 
-                    $list.addClass('at-limit');
-                } else if (cardCount > cardLimit) {
-                    $list.addClass('over-limit');
-                }
+            if(cardCount > cardMaxLimit || (cardMinLimit != null && cardCount < cardMinLimit)) {
+							$list.addClass('over-limit');
+						} else if (cardCount == cardMaxLimit || (cardMinLimit != null && cardCount == cardMinLimit)) {
+              $list.addClass('at-limit');
             }
         }
     }
