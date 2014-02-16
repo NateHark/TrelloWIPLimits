@@ -1,5 +1,5 @@
 /*
- * TrelloWIPLimits v0.2.3 <https://github.com/NateHark/TrellowWIPLimits>
+ * TrelloWIPLimits v0.3.1 <https://github.com/NateHark/TrellowWIPLimits>
  * Adds work-in-progress limits to Trello lists supporting a Kanban workflow.
  * Inspired by TrelloScrum <https://github.com/Q42/TrelloScrum> 
  *
@@ -21,19 +21,40 @@ $(function() {
         });
     };
     
-    // Watch for list changes and handle initial list population	
-    var boards = $.find('#board .list');
-    var observer = new MutationObserver(function(mutations) {
+    // Watches lists for changes 
+    var listObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             setTimeout(function() { 
                 updateList($(mutation.target).closest('.list')); 
             });
         });
     });
-    var config = {childList: true, subtree: true};
-    for(var i=0, len = boards.length; i<len; i++) {
-        observer.observe(boards[i], config);
-    }
+
+    // Watches the content div for changes. This ensures the board observers
+    // are properly wired when you switch from the board list to a particular board 
+    var contentObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            var lists = $(mutation.target).find('#board .list');
+            observeLists(lists);
+            lists.each(function(index, list) {
+                setTimeout(function() { 
+                    updateList($(list)); 
+                });
+            });          
+        });
+    });
+
+    function observeLists(lists) {
+        for(var i = 0, len = lists.length; i < len; i++) {
+            listObserver.observe(lists[i], { childList: true, subtree: true });
+        }
+    }; 
+
+    var content = $.find('#content');
+    var lists = $.find('#board .list');
+
+    contentObserver.observe(content[0], { childList: true });
+    observeLists(lists);
 
     // Recalculate limits when the list title is changed
     $('.list-title .js-save-edit').live('mouseup', function(e) {
@@ -65,14 +86,14 @@ function List(el) {
             if(this.nodeType === 3) {
                 var listName = this.nodeValue;
                 var matches = listMatch.exec(listName);
-								cardMinLimit = cardMaxLimit = null;
-								if(!matches || matches.length != 3) {	return; }
-								if(typeof matches[2] === 'undefined') {
-									cardMaxLimit = matches[1];
-								} else {
-									cardMinLimit = matches[1];
-									cardMaxLimit = matches[2];
-								}
+		cardMinLimit = cardMaxLimit = null;
+		if(!matches || matches.length != 3) {	return; }
+		if(typeof matches[2] === 'undefined') {
+                    cardMaxLimit = matches[1];
+                } else {
+                    cardMinLimit = matches[1];
+                    cardMaxLimit = matches[2];
+                }
             }
         });
     }
@@ -91,9 +112,9 @@ function List(el) {
             });
             
             if(cardCount > cardMaxLimit || (cardMinLimit != null && cardCount < cardMinLimit)) {
-							$list.addClass('over-limit');
-						} else if (cardCount == cardMaxLimit || (cardMinLimit != null && cardCount == cardMinLimit)) {
-              $list.addClass('at-limit');
+                $list.addClass('over-limit');
+            } else if (cardCount == cardMaxLimit || (cardMinLimit != null && cardCount == cardMinLimit)) {
+                $list.addClass('at-limit');
             }
         }
     }
