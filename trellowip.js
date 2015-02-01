@@ -106,7 +106,7 @@ function List(el) {
         
         if(cardMaxLimit != null) {
             var cardCount = 0;
-            $list.find('.list-card').each(function() {
+            $list.find('.list-card').not('.hide').each(function() {
                 if($(this).parent().hasClass('card-composer')) return true;    
                 cardCount++;
             });
