@@ -60,7 +60,33 @@ $(function() {
     $('.list-title .js-save-edit').live('mouseup', function(e) {
         setTimeout(function() { updateList($(e.target).parents('.list')); });       
     });
-	
+
+    // Recalculate limits when filters are applied
+    $('.js-toggle-label-filter').live('mouseup', function(e) {
+        setTimeout(function() {
+            updateList($('.list'));
+        });
+    });
+
+    $('.js-due-filter').live('mouseup', function(e) {
+        setTimeout(function() {
+            updateList($('.list'));
+        });
+    });
+
+    // Recalculate limits when filters are cleared
+    $('.js-clear-all').live('mouseup', function(e) {
+        setTimeout(function() {
+            updateList($('.list'));
+        });
+    });
+
+    $('.js-filter-card-clear').live('mouseup', function(e) {
+        setTimeout(function() {
+            updateList($('.list'));
+        });
+    }); 
+
     updateList($('.list'));
 });
 
