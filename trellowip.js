@@ -117,7 +117,7 @@ function List(el) {
                 $list.addClass('at-limit');
             }
         }
-    }
+    };
 
     this.checkWipLimit();
 };
