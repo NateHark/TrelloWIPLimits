@@ -53,8 +53,13 @@ $(function() {
     var content = $.find('#content');
     var lists = $.find('#board .list');
 
-    contentObserver.observe(content[0], { childList: true });
-    observeLists(lists);
+    if(content.length) {
+        contentObserver.observe(content[0], { childList: true });
+    }
+    
+    if(lists.length) {
+        observeLists(lists);
+    }
 
     // Recalculate limits when the list title is changed
     $('.list-title .js-save-edit').live('mouseup', function(e) {
