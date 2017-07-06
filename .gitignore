@@ -1,3 +1,6 @@
-# Aptana project files
-.project
-.metadata
+# Output directories
+dist/
+tmp/
+
+# NPM modules directory
+node_modules/

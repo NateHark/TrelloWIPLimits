@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "target": "ES5"
+    },
+    "include": [
+        "src/ts/*"
+    ]
+}
