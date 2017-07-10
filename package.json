@@ -3,18 +3,15 @@
   "version": "1.0.0",
   "description": "A Google Chrome extension that adds support for work-in-progress limits to Trello (https://trello.com)",
   "scripts": {
-    "clean:tmp": "rimraf ./tmp",
     "clean:dist": "rimraf ./dist",
-    "clean": "npm run clean:dist && npm run clean:tmp",
+    "clean": "npm run clean:dist",
     "copy": "ncp ./src/resources ./dist && ncp ./src/config/manifest-chrome.json ./dist/manifest.json",
     "lint:ts": "tslint 'src/**/*.ts'",
     "lint": "npm run lint:ts",
     "package": "bestzip ./dist/trellowip-$npm_package_version.zip ./dist/*",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "uglify:dist": "mkdirp ./dist && uglifyjs ./tmp/js/*.js > ./dist/extension.min.js",
-    "uglify": "npm run uglify:dist",
-    "build:ts": "tsc --outFile './tmp/js/extension.js'",
-    "build": "npm run clean && npm run lint && npm run build:ts && npm run uglify && npm run copy && npm run package"
+    "build:ts": "tsc --outFile './dist/extension.js'",
+    "build": "npm run clean && npm run lint && npm run build:ts && npm run copy && npm run package"
   },
   "repository": {
     "type": "git",
@@ -32,7 +29,6 @@
     "ncp": "^2.0.0",
     "rimraf": "^2.6.1",
     "tslint": "^5.5.0",
-    "typescript": "^2.4.1",
-    "uglify-js": "^3.0.23"
+    "typescript": "^2.4.1"
   }
 }
