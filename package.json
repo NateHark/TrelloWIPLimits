@@ -5,7 +5,7 @@
   "scripts": {
     "clean:dist": "rimraf ./dist",
     "clean": "npm run clean:dist",
-    "copy": "ncp ./src/resources ./dist && ncp ./src/config/manifest-chrome.json ./dist/manifest.json",
+    "copy": "ncp ./src/resources ./dist && ncp ./src/config ./dist",
     "lint:ts": "tslint 'src/**/*.ts'",
     "lint": "npm run lint:ts",
     "package": "bestzip ./dist/trellowip-$npm_package_version.zip ./dist/*",
