@@ -1,6 +1,6 @@
 {
   "name": "trello-wip-limits",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Google Chrome extension that adds support for work-in-progress limits to Trello (https://trello.com)",
   "scripts": {
     "clean:dist": "rimraf ./dist",
