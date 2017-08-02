@@ -10,8 +10,9 @@
     "lint": "npm run lint:ts",
     "package": "bestzip ./dist/trellowip-$npm_package_version.zip ./dist/*",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:ts": "tsc --outFile './dist/extension.js'",
-    "build": "npm run clean && npm run lint && npm run build:ts && npm run copy && npm run package"
+    "build:ts": "tsc",
+    "build": "npm run clean && npm run lint && npm run build:ts && npm run copy && npm run package",
+    "watch": "tsc -w"
   },
   "repository": {
     "type": "git",

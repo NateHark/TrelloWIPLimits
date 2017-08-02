@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
         "noImplicitAny": true,
-        "removeComments": true,
+        "outFile": "./dist/extension.js",
         "preserveConstEnums": true,
+        "removeComments": true,
         "target": "ES5"
     },
     "include": [
