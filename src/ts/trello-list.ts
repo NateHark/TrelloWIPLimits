@@ -30,7 +30,7 @@ class TrelloList {
         classList.remove("over-limit");
         classList.remove("at-limit");
 
-        const cardCount = this.listContentNode.querySelectorAll(".list-card").length;
+        const cardCount = this.listContentNode.querySelectorAll("a.list-card").length;
         if (cardCount > this.maxCards || cardCount < this.minCards) {
             classList.add("over-limit");
         }
@@ -42,7 +42,7 @@ class TrelloList {
 
     /** Determines whether the provided element represents a Trello Card */
     private isListCard(element: Element): boolean {
-        return element.classList.contains("list-card") && !element.classList.contains("js-member-droppable");
+        return element.classList.contains("list-card");
     }
 
     /** MutationObserver callback for changes to the list title */
